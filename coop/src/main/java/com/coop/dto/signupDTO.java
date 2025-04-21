@@ -10,5 +10,5 @@ public class signupDTO {
     private String password;
     private String passwordConfirm;
     private String email;
-    private String nickname;
+    private String nickname; /*저장*/
 }

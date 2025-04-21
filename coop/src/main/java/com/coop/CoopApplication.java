@@ -1,7 +1,11 @@
 package com.coop;
 
-//spring Boot 메인 클래스 
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+@SpringBootApplication
 public class CoopApplication {
-
+    public static void main(String[] args) {
+        SpringApplication.run(CoopApplication.class, args);
+    }
 }
