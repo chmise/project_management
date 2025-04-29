@@ -82,6 +82,11 @@
     		<groupId>nz.net.ultraq.thymeleaf</groupId>
     		<artifactId>thymeleaf-layout-dialect</artifactId>
     	</dependency>
+    	<!--프로필 이름-->
+    	<dependency>
+  			<groupId>org.thymeleaf.extras</groupId>
+  			<artifactId>thymeleaf-extras-springsecurity6</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>

@@ -4,27 +4,30 @@
 		<div class="toggle-hover" id="closeToggle">←</div>
 	</div>
 
+	<!-- 프로필 -->
 	<div class="profile-box">
 		<div class="circle-icon">👤</div>
-		<span th:text="${username}">이름</span>
+		<span sec:authentication="name">이름</span>
 	</div>
 
+
+	<!-- 프로젝트 리스트 -->
 	<div id="project-list" class="flex-grow-1">
-		<!-- 예시 프로젝트 탭 -->
-		<div class="project-tab">
-			프로젝트 1
-			<div class="menu-group">
-				<div class="dropdown-arrow">▼</div>
-				<div class="menu-dots" onclick="toggleActions(this)">
-					<span></span><span></span><span></span>
-					<div class="project-actions">
-						<div>수정</div>
-						<div>삭제</div>
-					</div>
-				</div>
-			</div>
-			<div class="project-details">Details here...</div>
-		</div>
+		<!-- JS로 동적 렌더링 -->
+	</div>
+
+
+	<div class="mb-2">
+		<a href="/admin" class="btn btn-primary">Admin</a>
+	</div>
+	<div class="mb-2">
+		<a href="/chat" class="btn btn-primary">Chat</a>
+	</div>
+	<div class="mb-2">
+		<a href="/gantt" class="btn btn-primary">Gantt</a>
+	</div>
+	<div class="mb-2">
+		<a href="/mindmap" class="btn btn-primary">Mindmap</a>
 	</div>
 
 	<div class="add-project" onclick="showAddInput()">프로젝트 추가</div>
