@@ -13,15 +13,7 @@
 			<div th:if="${session.user == null}">
 				<a href="/logout" class="btn btn-primary me-2">로그아웃</a>
 			</div>
-			<div th:if="${session.user != null}">
-				<p th:text="'Hello, ' + ${session.user.nickname} + '!'"></p>
-				<div class="btn-group">
-					<a href="/admin" class="btn btn-primary me-2">Admin</a> <a
-						href="/chat" class="btn btn-primary me-2">Chat</a> <a
-						href="/gantt" class="btn btn-primary me-2">Gantt</a> <a
-						href="/mindmap" class="btn btn-primary">Mindmap</a>
-				</div>
-			</div>
+			
 		</div>
 	</div>
 </body>
