@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import com.coop.dto.LoginDTO;
 import com.coop.dto.SignupDTO;
 import com.coop.entity.UserEntity;
-import com.coop.entity.UserEntity.Role;
 import com.coop.repository.UserRepository;
 
 @Service
@@ -42,7 +41,6 @@ public class UserService {
         user.setPassword(bCryptPasswordEncoder.encode(signupDTO.getPassword())); // 비밀번호 암호화
         user.setEmail(signupDTO.getEmail());
         user.setNickname(signupDTO.getNickname());
-        user.setRole(Role.USER); // 기본 역할은 USER
         
         // 사용자 저장
         userRepository.save(user);

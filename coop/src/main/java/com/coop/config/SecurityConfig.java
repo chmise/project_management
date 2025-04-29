@@ -14,7 +14,7 @@ import com.coop.service.CustomUserDetailsService;
 @Configuration
 public class SecurityConfig {
 
-	// userDetailsService 사용 추
+	// userDetailsService 사용 추가 
 	private final CustomUserDetailsService userDetailsService;
 	
 	@Autowired
@@ -36,8 +36,11 @@ public class SecurityConfig {
             				new AntPathRequestMatcher("/auth/login"),
             				new AntPathRequestMatcher("/auth/signup"),
             				new AntPathRequestMatcher("/css/**"),
-            			    new AntPathRequestMatcher("/js/**")  
+            			    new AntPathRequestMatcher("/js/**"),
+            			    new AntPathRequestMatcher("/images/**"),
+            			    new AntPathRequestMatcher("/error/**")
             				).permitAll() //위 요청이 오면 인증, 인가 없이 접근 가능 
+            				.requestMatchers(new AntPathRequestMatcher("/admin/**")).hasRole("ADMIN") //관리자만 해당 페이지를 갈 수 있게 처
             				.anyRequest().authenticated()
             				)
             .formLogin(form -> form //폼 기반 로그인 설정 
@@ -48,9 +51,9 @@ public class SecurityConfig {
             		)
             .logout(logout -> logout
             		.logoutSuccessUrl("/auth/login") //로그아웃 시 이동할 경로 
-            		.invalidateHttpSession(true)  //로그아웃 후 세션을 삭제할지 여부 
+            		.invalidateHttpSession(true)  //로그아웃 후 세션을 삭제할지 여부
             		)
-            .csrf(AbstractHttpConfigurer::disable); //테스트를 위해 csrf 비활성화 
+            .csrf(AbstractHttpConfigurer::disable); //테스트를 위해 csrf 비활성화
         return http.build();
     }
 }
