@@ -1,14 +1,13 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorator="~{layout/main}"
-      layout:fragment="content">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/main}">
 <head>
-    <title>Home - COOP</title>
+<title layout:fragment="title">coop-index</title>
 </head>
 <body>
 	<div class="container mt-5">
-    	<h1 class="text-center mb-4">환영합니다, <span th:text="${username != null} ? ${username} : '사용자'">사용자</span> 님!</h1>
+    	<h1 class="text-center mb-4">환영합니다</h1>
     		<div class="card shadow-lg p-4 text-center">
          	<h3>COOP에 오신 것을 환영합니다!</h3>
       		<p>협업을 위한 최고의 플랫폼에서 프로젝트를 시작해보세요.</p>

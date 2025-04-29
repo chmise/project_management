@@ -1,78 +1,12 @@
-<!DOCTYPE html>
-  <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-  <body>
-      <div th:fragment="submenu (projects)">
-          <!-- Offcanvas 사이드바 -->
-          <div class="offcanvas offcanvas-start submenu" tabindex="-1" id="secondarySidebar" aria-labelledby="secondarySidebarLabel">
-              <div class="offcanvas-header">
-                  <h5 class="offcanvas-title" id="secondarySidebarLabel">프로젝트</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="닫기"></button>
-              </div>
-              <div class="offcanvas-body">
-                  <!-- 프로젝트 생성 버튼 -->
-                  <button class="btn btn-primary w-100 mb-3" data-bs-toggle="modal" data-bs-target="#createProjectModal">
-                      프로젝트 생성
-                  </button>
+<aside th:fragment="submenu" class="sidebar-left" id="leftSidebar">
+	<div class="circle-icon position-relative">
+		🔔 <span
+			class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+			3 </span>
+	</div>
+	<div class="circle-icon">📅</div>
+	<div class="circle-icon mt-auto mb-3">⚙️</div>
 
-                  <!-- 프로젝트 목록 -->
-                  <div class="accordion" id="projectAccordion">
-                      <div class="accordion-item" th:each="project : ${projects}">
-                          <h2 class="accordion-header" th:id="'heading-' + ${project.id}">
-                              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" th:data-bs-target="'#collapse-' + ${project.id}" aria-expanded="false" th:aria-controls="'collapse-' + ${project.id}">
-                                  <span th:text="${project.name}"></span>
-                              </button>
-                          </h2>
-                          <div th:id="'collapse-' + ${project.id}" class="accordion-collapse collapse" th:aria-labelledby="'heading-' + ${project.id}" data-bs-parent="#projectAccordion">
-                              <div class="accordion-body">
-                                  <ul class="nav flex-column">
-                                      <li class="nav-item">
-                                          <a class="nav-link" th:href="@{'/projects/' + ${project.id} + '/gantt'}">간트차트</a>
-                                      </li>
-                                      <li class="nav-item">
-                                          <a class="nav-link" th:href="@{'/projects/' + ${project.id} + '/mindmap'}">마인드맵</a>
-                                      </li>
-                                      <li class="nav-item">
-                                          <a class="nav-link" th:href="@{'/projects/' + ${project.id} + '/chat'}">채팅</a>
-                                      </li>
-                                      <li class="nav-item" sec:authorize="hasRole('ADMIN')">
-                                          <a class="nav-link" th:href="@{'/projects/' + ${project.id} + '/admin'}">관리자 페이지</a>
-                                      </li>
-                                  </ul>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-
-          <!-- 사이드바 토글 버튼 (모바일용) -->
-          <button class="btn btn-primary submenu-toggle d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#secondarySidebar" aria-controls="secondarySidebar">
-              <span class="navbar-toggler-icon"></span>
-          </button>
-
-          <!-- 프로젝트 생성 모달 -->
-          <div class="modal fade" id="createProjectModal" tabindex="-1" aria-labelledby="createProjectModalLabel" aria-hidden="true">
-              <div class="modal-dialog">
-                  <div class="modal-content">
-                      <div class="modal-header">
-                          <h5 class="modal-title" id="createProjectModalLabel">새 프로젝트 생성</h5>
-                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="닫기"></button>
-                      </div>
-                      <form th:action="@{/projects/create}" method="post">
-                          <div class="modal-body">
-                              <div class="mb-3">
-                                  <label for="projectName" class="form-label">프로젝트 이름</label>
-                                  <input type="text" class="form-control" id="projectName" name="projectName" required>
-                              </div>
-                          </div>
-                          <div class="modal-footer">
-                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-                              <button type="submit" class="btn btn-primary">생성</button>
-                          </div>
-                      </form>
-                  </div>
-              </div>
-          </div>
-      </div>
-  </body>
-  </html>
+	<!-- 중간 사이드바 열기 버튼 (숨겨진 상태에서 보임) -->
+	<div class="open-toggle toggle-hover" id="openToggle">→</div>
+</aside>

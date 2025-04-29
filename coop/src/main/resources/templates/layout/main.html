@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -15,7 +14,8 @@
 <body>
 	<div class="sidebar-wrapper">
 		<!-- 왼쪽 사이드바 -->
-		<th:block th:replace="~{fragments/submenu :: submenu}" />
+		<th:block th:replace="~{fragments/submenu :: submenu(projects=${projects})}" />
+		
 		<!-- 중간 사이드바 -->
 		<th:block th:replace="~{fragments/sidebar :: sidebar}" />
 		<!-- 메인 콘텐츠 영역 -->
