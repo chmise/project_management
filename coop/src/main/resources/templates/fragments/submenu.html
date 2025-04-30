@@ -1,14 +1,26 @@
-<aside th:fragment="submenu" class="sidebar-left" id="leftSidebar">
+<aside xmlns:th="http://www.thymeleaf.org" th:fragment="submenu"
+	class="sidebar-left" id="leftSidebar">
 	<div class="circle-icon position-relative">
-		🔔 <!-- <span
+		🔔
+		<!-- <span
 			class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
 			 </span> -->
 	</div>
 	<div class="circle-icon">📅</div>
-	<div class="circle-icon mt-auto mb-3">⚙️</div>
 
 
-	
+	<div
+		class="sidebar-bottom-icons mt-auto d-flex flex-column align-items-center">
+		<div class="circle-icon" sec:authorize="isAuthenticated()"
+			xmlns:sec="http://www.thymeleaf.org/extras/spring-security" mb-2>
+			<a th:href="@{/logout}" title="로그아웃"> <img
+				th:src="@{/images/log-out1.png}" alt="로그아웃" />
+			</a>
+		</div>
+		<div class="circle-icon mb-3">⚙️</div>
+	</div>
+
+
 
 	<!-- 중간 사이드바 열기 버튼 (숨겨진 상태에서 보임) -->
 	<div class="open-toggle toggle-hover" id="openToggle">→</div>
