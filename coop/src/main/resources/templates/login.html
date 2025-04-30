@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>COOP 로그인</title>
   <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+  <link rel="stylesheet" th:href="@{/css/custom.css}">
 </head>
 <body>
   <div class="container d-flex justify-content-center align-items-center vh-100">
@@ -15,16 +16,16 @@
     <form action="/auth/login" method="POST">
       <input type="hidden" th:name="${_csrf?.parameterName}" th:value="${_csrf?.token}" />
       <div class="mb-3">
-        <input type="text" class="form-control" name="username" placeholder="ID">
+        <input type="text" class="form-control" name="username" placeholder="아이디">
       </div>
       <div class="mb-3">
-        <input type="password" class="form-control" name="password" placeholder="PASSWORD">
+        <input type="password" class="form-control" name="password" placeholder="비밀번호">
       </div>
       <button type="submit" class="btn btn-primary w-100">로그인</button>
     </form>
 
     <div class="mt-3 d-flex justify-content-between">
-      <a href="#" class="text-primary">비밀번호를 잊으셨나요?</a>
+      <a href="/" class="text-primary">welcome</a>
       <button class="btn btn-link p-0" onclick="location.href='/auth/signup'">새 계정 만들기</button>
     </div>
   </div>

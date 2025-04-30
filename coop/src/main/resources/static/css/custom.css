@@ -1,0 +1,52 @@
+.btn-primary {
+      background-color: #0074D9;
+      border-color: #0074D9;
+}
+.btn-primary:hover {
+    background-color: #005bb5;
+    border-color: #005bb5;
+}
+.btn-outline-primary {
+    color: #0074D9;
+    border-color: #0074D9;
+}
+.btn-outline-primary:hover {
+    background-color: #0074D9;
+    color: white;
+}
+.text-primary {
+    color: #0074D9 !important;
+}
+.bg-primary {
+    background-color: #0074D9 !important;
+}
+.error-page {
+    background: linear-gradient(to bottom, #e6f0fa, #ffffff);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.error-container {
+    text-align: center;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 1rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+.error-logo {
+    max-width: 200px;
+    height: auto;
+    margin-bottom: 1.5rem;
+}
+.error-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #0074D9;
+    margin-bottom: 0.5rem;
+}
+.error-subtitle {
+    font-size: 1.2rem;
+    color: #6c757d;
+    margin-bottom: 2rem;
+}
