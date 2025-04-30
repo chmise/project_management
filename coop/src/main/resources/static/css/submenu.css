@@ -1,59 +1,69 @@
 /* submenu.css - 왼쪽 사이드바 */
 .sidebar-left {
-  width: 64px;
-  background-color: #0074D9;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-top: 3rem;
-  border-right: 1px solid #ddd;
-  position: relative;
-  overflow: visible;
+	width: 64px;
+	background-color: #0074D9;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding-top: 3rem;
+	border-right: 1px solid #ddd;
+	position: relative;
+	overflow: visible;
+}
+/* 밑의 아이콘*/
+.sidebar-bottom-icons {
+  width: 100%;
+}
+.circle-icon {
+	width: 40px;
+	height: 40px;
+	margin: 0.75rem 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 1.2rem;
+	color: white;
+	cursor: pointer;
+	transition: background 0.2s ease;
+	border-radius: 8px;
 }
 
-.circle-icon {
-  width: 40px;
-  height: 40px;
-  margin: 0.75rem 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.2rem;
-  color: white;
-  cursor: pointer;
-  transition: background 0.2s ease;
-  border-radius: 8px;
+.circle-icon img {
+	width: 24px;
+	height: 24px;
 }
+
 .circle-icon:hover {
-  background-color: #005bb5;
+	background-color: #005bb5;
 }
 
 .toggle-hover {
-  width: 25px;
-  height: 25px;
-  background-color: white;
-  border: 1px solid #ccc;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 12px;
-  cursor: pointer;
-  transition: background 0.2s;
+	width: 25px;
+	height: 25px;
+	background-color: white;
+	border: 1px solid #ccc;
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 12px;
+	cursor: pointer;
+	transition: background 0.2s;
 }
+
 .toggle-hover:hover {
-  background-color: #e7f9ee;
+	background-color: #e7f9ee;
 }
 
 .open-toggle {
-  position: absolute;
-  top: 15px;
-  right: -1px;
-  z-index: 100;
-  display: none;
+	position: absolute;
+	top: 15px;
+	right: -1px;
+	z-index: 100;
+	display: none;
 }
 
 #closeToggle { /* closeToggle 은 sidebar 쪽에서 보임/숨김 */
-  display: flex;
-  visibility: hidden;
+	display: flex;
+	visibility: hidden;
 }

@@ -29,7 +29,7 @@
   right: 0;
   top: 0;
   bottom: 0;
-  width: 5px;
+  width: 1px;
   cursor: ew-resize;
   background-color: #0074D9;
 }
@@ -41,6 +41,7 @@
   margin-bottom: 1rem;
   font-weight: 600;
   font-size: 16px;
+  text-align: center;
 }
 
 .profile-box {
@@ -50,11 +51,15 @@
   padding: 0.5rem;             
   margin-bottom: 1rem;          
   border-radius: 0.25rem;     
-  box-shadow: 0.5px 0.5px 0.5px 0.5px #0074D9
+  text-align: center;
 }
 
 .profile-box .circle-icon {
   margin-right: 0.5rem;         
+}
+.profile-box span {
+  display: block;
+  width: 100%;
 }
 
 

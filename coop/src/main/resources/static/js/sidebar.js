@@ -89,10 +89,105 @@ closeToggle.addEventListener("click", () => {
 });
 
 
-// --- 프로젝트 추가 입력창 띄우기 ---
+/* 프로젝트 관리 사이드바 스크립트 */
+
+// —————————— 전역 설정 ——————————
+const API_BASE = "/projects";
+const listEl   = document.getElementById("project-list");
+
+// 페이지 로드 시: 프로젝트 리스트 불러오기 + 이벤트 위임 설정
+document.addEventListener("DOMContentLoaded", () => {
+	loadProjects();
+	setupEventDelegation();
+});
+
+
+// —————————— 프로젝트 리스트 로드 ——————————
+function loadProjects() {
+	fetch(API_BASE, { credentials: "same-origin" })
+		.then(res => res.json())
+		.then(projects => {
+			listEl.innerHTML = "";           // 기존 목록 초기화
+			projects.forEach(renderProject); // 프로젝트마다 렌더링
+		})
+		.catch(err => console.error("프로젝트 로드 실패", err));
+}
+
+
+// —————————— 이벤트 위임 설정 ——————————
+function setupEventDelegation() {
+	listEl.addEventListener("click", e => {
+		// 1) 수정 · 삭제 버튼 클릭 먼저 처리
+		const action = e.target.closest(".action-edit, .action-delete");
+		if (action) {
+			const tab = action.closest(".project-tab");
+			const id  = tab.dataset.id;
+			if (action.classList.contains("action-edit")) {
+				const oldName = tab.querySelector(".project-name").textContent;
+				startEdit(tab, id, oldName);
+			} else {
+				deleteProjectHandler(id);
+			}
+			return;
+		}
+
+		// 2) ⋯ 메뉴 토글은 그 다음
+		const dot = e.target.closest(".menu-dots");
+		if (dot) {
+			toggleActions(dot);
+		}
+	});
+
+	// 키다운 이벤트 (수정 input 엔터 / Esc)
+	listEl.addEventListener("keydown", e => {
+		if (!e.target.classList.contains("edit-input")) return;
+
+		if (e.key === "Enter") {
+			const tab     = e.target.closest(".project-tab");
+			const id      = tab.dataset.id;
+			const newName = e.target.value.trim();
+			if (!newName) return alert("이름을 입력하세요.");
+			updateProjectHandler(id, newName);
+		}
+
+		if (e.key === "Escape") {
+			loadProjects();  // Esc 누르면 취소하고 전체 재로드
+		}
+	});
+}
+
+
+// —————————— 프로젝트 한 개 렌더링 ——————————
+function renderProject(p) {
+	const tab = document.createElement("div");
+	tab.className = "project-tab d-flex justify-content-between align-items-center p-2 mb-1 rounded bg-white";
+	tab.dataset.id = p.projectId;
+
+	const nameSpan = document.createElement("span");
+	nameSpan.textContent = p.projectName;
+	nameSpan.className = "project-name flex-grow-1";
+
+	const menuGroup = document.createElement("div");
+	menuGroup.className = "menu-group";
+	menuGroup.innerHTML = `
+		<div class="dropdown-arrow">▼</div>
+		<div class="menu-dots">
+			<span></span><span></span><span></span>
+			<div class="project-actions">
+				<div class="action-edit">수정</div>
+				<div class="action-delete">삭제</div>
+			</div>
+		</div>
+	`;
+
+	tab.append(nameSpan, menuGroup);
+	listEl.append(tab);
+}
+
+
+// —————————— 프로젝트 추가 입력창 띄우기 ——————————
 function showAddInput() {
-	const list = document.getElementById("project-list");
-	const existingInput = list.querySelector('input[type="text"]');
+	const existingInput = listEl.querySelector('input[type="text"]');
 	if (existingInput) {
 		existingInput.focus();
 		return;
@@ -102,7 +197,88 @@ function showAddInput() {
 	input.type = "text";
 	input.placeholder = "새 프로젝트명 입력";
 	input.className = "form-control mb-2";
-	list.prepend(input);
+	listEl.prepend(input);
+	input.focus();
+	bindSaveOnEnter(input);
+}
+
+function bindSaveOnEnter(input) {
+	input.addEventListener("keydown", e => {
+		if (e.key !== "Enter") return;
+
+		const name = input.value.trim();
+		if (!name) return alert("프로젝트 이름을 입력하세요.");
+
+		fetch(`${API_BASE}/add`, {
+			method: "POST",
+			credentials: "same-origin",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({ projectName: name })
+		})
+			.then(res => {
+				if (!res.ok) throw new Error("추가 실패");
+				return res.json();
+			})
+			.then(() => {
+				input.remove();   // 입력창 제거
+				loadProjects();   // 전체 리스트 갱신
+			})
+			.catch(err => {
+				console.error(err);
+				alert(err.message);
+			});
+	});
+}
+
+
+// —————————— 수정 처리 ——————————
+function startEdit(tab, id, oldName) {
+	tab.innerHTML = "";
+	const input = document.createElement("input");
+	input.type = "text";
+	input.value = oldName;
+	input.className = "form-control form-control-sm flex-grow-1 edit-input";
+	tab.append(input);
 	input.focus();
 }
+
+function updateProjectHandler(id, newName) {
+	fetch(`${API_BASE}/${id}`, {
+		method: "PUT",
+		credentials: "same-origin",
+		headers: { "Content-Type": "application/json" },
+		body: JSON.stringify({ projectName: newName })
+	})
+		.then(res => {
+			if (!res.ok) throw new Error("수정 실패");
+			return res.json();
+		})
+		.then(() => loadProjects())
+		.catch(err => {
+			console.error(err);
+			alert(err.message);
+			loadProjects();
+		});
+}
+
+
+// —————————— 삭제 처리 ——————————
+function deleteProjectHandler(id) {
+	if (!confirm("정말 삭제하시겠습니까?")) return;
+	fetch(`${API_BASE}/${id}`, {
+		method: "DELETE",
+		credentials: "same-origin"
+	})
+		.then(res => {
+			if (!res.ok) throw new Error("삭제 실패");
+			loadProjects();
+		})
+		.catch(err => {
+			console.error(err);
+			alert(err.message);
+			loadProjects();
+		});
+}
+
+
 
